@@ -1,0 +1,60 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "io.qameta.allure:allure-gradle:2.8.1"
+    }
+}
+
+plugins {
+    id 'java'
+    id "io.qameta.allure" version "2.8.1"
+    id 'idea'
+    id 'groovy'
+}
+apply plugin: "io.qameta.allure"
+
+compileJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+
+allure {
+    autoconfigure = true
+    aspectjweaver = true
+    aspectjVersion = '1.9.4'
+    version = '2.10.0'
+
+}
+
+repositories {
+    mavenCentral()
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty 'allure.results.directory', 'build/allure-results'
+}
+
+dependencies {
+    testCompile 'com.codeborne:selenide:5.21.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter:5.7.0'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.7.0'
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+    testImplementation group: 'io.qameta.allure', name: 'allure-junit5', version: '2.13.6'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.0'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.0'
+    testCompile 'io.qameta.allure:allure-junit5:2.13.6'
+    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '4.3.2'
+    implementation group: 'org.telegram', name: 'telegrambots', version: '5.2.0'
+
+
+
+}
