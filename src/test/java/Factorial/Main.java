@@ -7,7 +7,7 @@ import java.math.BigInteger;
 
 public class Main {
     public static void main(String[] args) {
-      calculatorFactorial(3);
+      calculatorFactorial(5);
     }
     @Test
     @DisplayName("Находим факториал числа")

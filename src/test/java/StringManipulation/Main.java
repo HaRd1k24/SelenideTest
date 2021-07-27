@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 public class Main {
     public static void main(String[] args) {
-        String str = "топот";
+        String str = "вфыт";
         isMethodReverse(str);
     }
 

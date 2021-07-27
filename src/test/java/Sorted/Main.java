@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         int count = 20;
 
-        searchMaxApproximate(18, 21, count);
+        searchMaxApproximate(17, 22, count);
     }
 
     @Test
@@ -21,5 +21,7 @@ public class Main {
             System.out.println(b);
         }
     }
+
+    // Сделать с массивом целых чисел. Если число 15, дано 14 и 16 , то пусть выдаст их же
 }
 
