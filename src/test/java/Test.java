@@ -1,42 +1,35 @@
 import io.restassured.RestAssured;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.filter.log.LogDetail;
+import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 
-import java.util.List;
+import java.util.Map;
 
 public class Test {
-    public static final String API_KEY = "82edc87933e14dc38b65bc307bc86b33";
-    public static RequestSpecification spec;
 
+    public static RequestSpecification spec;
+    String baseURI = "auth.mail.ru/jsapi/auth";
     @BeforeAll
     static void setUp() {
-        RequestSpecBuilder builder = new RequestSpecBuilder();
-        builder
-                .setBaseUri("https://newsapi.org/")
-                .setBasePath("v2/everything")
-                .addQueryParam("apiKey", API_KEY)
-                .log(LogDetail.ALL);
+        String baseURI = "auth.mail.ru";
 
-        spec = builder.build();
+
     }
 
     @org.junit.jupiter.api.Test
     @DisplayName("Имена авторов кто упоминал теслу за последний месяц")
     void stateTeslaOnMonth() {
-        Response response = RestAssured.given().spec(spec)
-                .queryParam("from", "2021-07-27")
-                .queryParam("sortBy", "publishedAt")
-                .when().get("?q=tesla");
+        Response response = (Response) RestAssured.given().baseUri(baseURI).contentType(ContentType.JSON).accept(ContentType.JSON)
+                .queryParam("login", "leva.trapeznikova")
+                .queryParam("password", "Oneninenine8")
+                .queryParam("saveauth","1")
+                .post();
 
         JsonPath jsonPath = response.jsonPath();
-        List<Object> title = jsonPath.getList("articles.author");
-        title.forEach(System.out::println);
-        Assertions.assertFalse(title.isEmpty());
+        Map<String, String> cookies = response.cookies();
+        System.out.println(cookies);
     }
 }

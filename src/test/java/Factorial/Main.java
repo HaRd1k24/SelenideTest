@@ -7,12 +7,12 @@ import java.math.BigInteger;
 
 public class Main {
     public static void main(String[] args) {
-      calculatorFactorial(5);
+      calculatorFactorial(1111);
     }
     @Test
     @DisplayName("Находим факториал числа")
     private static void calculatorFactorial(int n) {
-        if(n <= 0){
+        if(n == 0){
             System.out.println("Такого факториала не существует");
         }else {
             BigInteger y = new BigInteger(String.valueOf(1));
